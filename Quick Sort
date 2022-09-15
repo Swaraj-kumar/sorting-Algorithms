@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//uses Dividde and conquer startregy consisting one eleemnt either from front or end or median as pivot element then 
+//dividing the array by comparing if the current element is less than pivot or not if lesser than swapped
+
+T.c
+w.c->o(n)^2----(if we pick pivot as greatest or smallest element)
+B.c->o(n)^2----if partition element picks middle element as pivot
+
+int partition(int arr[],int low,int high){
+    int pivot = arr[high];//considering last element as pivot
+    int i = low-1;//this is gonna start from -1 as low is 0
+    for(int j=low;j<=high-1;j++){
+        if(arr[j] < pivot){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+    swap(arr[i+1],arr[high]);
+    return i+1;//because i is starting from -1 index
+}
+
+void quickSort(int arr[],int low,int high){
+    if(low < high){
+        int pi = partition(arr,low,high);//pi is partitioning index
+        quickSort(arr,low,pi-1);//before partitioning pivot is last index
+        quickSort(arr,pi+1,high);//after partitioning pivot element changes
+    }
+}
+
+int main(){
+    int arr[7]={10,80,30,90,40,50,70};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    quickSort(arr,0,size-1);
+    for(int i=0;i<size;i++)cout<<arr[i]<<" "; 
+    return 0;
+}
